@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Модель данных для математических понятий
 data class MathConcept(
     val id: Int,
     val title: String,
@@ -42,7 +41,6 @@ data class MathConcept(
     val category: String
 )
 
-// База данных математических понятий
 val mathConcepts = listOf(
     MathConcept(
         1,
@@ -122,10 +120,9 @@ fun MathHandbookApp() {
     var searchText by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Все") }
 
-    // Получаем все категории
     val categories = listOf("Все") + mathConcepts.map { it.category }.distinct()
 
-    // Фильтруем понятия по поиску и категории
+
     val filteredConcepts = mathConcepts.filter { concept ->
         (concept.title.contains(searchText, ignoreCase = true) ||
                 concept.description.contains(searchText, ignoreCase = true) ||
@@ -138,7 +135,7 @@ fun MathHandbookApp() {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Заголовок приложения
+        
         Text(
             text = "Математический Справочник",
             style = MaterialTheme.typography.headlineMedium,
@@ -149,7 +146,7 @@ fun MathHandbookApp() {
             color = MaterialTheme.colorScheme.primary
         )
 
-        // Поле поиска (упрощенная версия без кастомных цветов)
+        
         OutlinedTextField(
             value = searchText,
             onValueChange = { searchText = it },
@@ -166,7 +163,7 @@ fun MathHandbookApp() {
             singleLine = true
         )
 
-        // Заголовок для категорий
+        
         Text(
             text = "Категории:",
             style = MaterialTheme.typography.labelLarge,
@@ -174,7 +171,7 @@ fun MathHandbookApp() {
             color = MaterialTheme.colorScheme.onSurface
         )
 
-        // Прокручиваемая панель категорий
+        
         ScrollableTabRow(
             selectedTabIndex = categories.indexOf(selectedCategory),
             modifier = Modifier.fillMaxWidth(),
@@ -199,7 +196,7 @@ fun MathHandbookApp() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Счетчик результатов
+        
         Text(
             text = "Найдено: ${filteredConcepts.size}",
             style = MaterialTheme.typography.bodySmall,
@@ -207,7 +204,7 @@ fun MathHandbookApp() {
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        // Список результатов или сообщение о пустом результате
+        
         if (filteredConcepts.isEmpty()) {
             Box(
                 modifier = Modifier
@@ -266,7 +263,7 @@ fun MathConceptCard(concept: MathConcept) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            // Заголовок карточки
+            
             Text(
                 text = concept.title,
                 style = MaterialTheme.typography.headlineSmall,
@@ -274,7 +271,7 @@ fun MathConceptCard(concept: MathConcept) {
                 modifier = Modifier.padding(bottom = 4.dp)
             )
 
-            // Категория
+            
             Text(
                 text = concept.category,
                 style = MaterialTheme.typography.labelSmall,
@@ -282,20 +279,20 @@ fun MathConceptCard(concept: MathConcept) {
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // Разделитель
+            
             HorizontalDivider(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
                 modifier = Modifier.padding(vertical = 8.dp)
             )
 
-            // Описание
+            
             Text(
                 text = concept.description,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 12.dp)
             )
 
-            // Формула
+            
             Text(
                 text = "Формула:",
                 style = MaterialTheme.typography.labelMedium,
@@ -313,7 +310,7 @@ fun MathConceptCard(concept: MathConcept) {
     }
 }
 
-// Кастомная цветовая схема
+
 private val MathHandbookColorScheme = lightColorScheme(
     primary = Color(0xFF2E7D32), // Зеленый
     secondary = Color(0xFF1976D2), // Синий
